@@ -57,10 +57,11 @@ module tt_um_mic1_cpu (
             MDR <= 32'h0;
             MBR <= 8'h0;
         end else if (ena) begin
-            // Burada işlem adımları tanımlanacak
-            // Şimdilik boş kalsın, sentez hatası almamak için PC'yi artıralım:
-            PC <= PC + 1; 
+            PC <= PC + 1;
+            MAR <= MAR + {24'h0, ui_in}; // ui_in'i MAR'a ekleyerek sistemi "meşgul" gösteriyoruz
         end
+
+        
     end
 
 endmodule

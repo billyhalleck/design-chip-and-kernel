@@ -1,20 +1,11 @@
-<!---
-
-This file is used to generate your project datasheet. Please fill in the information below and delete any unused
-sections.
-
-You can also include images in this folder and reference them in the markdown. Each image must be less than
-512 kb in size, and the combined size of all images must be less than 1 MB.
--->
-
 ## How it works
-
-Explain how your project works
+This is a MIC-1 microprocessor implementation. It uses a 32-bit datapath with an 8-bit external interface to fit TinyTapeout constraints.
 
 ## How to test
-
-Explain how to use your project
+After reset, the PC starts at 0. You can provide instructions via the ui_in pins.
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+* **RAM/ROM Emulator:** A microcontroller (like an Arduino or ESP32) or an FPGA to act as the external memory, providing instructions to the `ui_in` bus.
+* **Logic Analyzer:** To monitor the 8-bit output bus (`uo_out`) for memory addresses and data.
+* **Clock Source:** Although provided by the Tiny Tapeout board, an external function generator can be used for manual stepping.

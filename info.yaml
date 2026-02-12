@@ -1,15 +1,3 @@
-project kısmına: title: "MIC-1 Microprocessor"
-
-inputs: [clk, rst_n, ena, ui_in[0], ui_in[1], ...]
-
-outputs: [uo_out[0], ... uo_out[7]]
-
-
-
-
-
-
-
 # Tiny Tapeout project information
 project:
   title:        "MIC-1 Microprocessor"      # Project title

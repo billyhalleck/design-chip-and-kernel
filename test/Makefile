@@ -7,7 +7,7 @@ FST ?= -fst # Use more efficient FST format
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
 PROJECT_SOURCES = project.v
-
+DUT = tt_um_mic1_cpu
 ifneq ($(GATES),yes)
 
 # RTL simulation:

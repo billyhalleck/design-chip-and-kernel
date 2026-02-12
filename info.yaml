@@ -2,7 +2,7 @@
 project:
   title: "MIC-1 Microprocessor"      # Project title
   author: "billyhalleck"      # Your name
-  discord: "billyhalleck"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
+  discord: "billyhalleck_"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
   description: "design a chip"      # One line description of what your project does
   language: "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
   clock_hz: 10000000     # Clock frequency in Hz (or 0 if not applicable)
@@ -21,7 +21,6 @@ project:
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
-# info.yaml icindeki pinout bolumu
 pinout:
   # Inputs
   ui[0]: "data0"
@@ -44,14 +43,14 @@ pinout:
   uo[7]: "addr7"
   
   # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  uio[0]: "ex0"
+  uio[1]: "ex1"
+  uio[2]: "ex2"
+  uio[3]: "ex3"
+  uio[4]: "ex4"
+  uio[5]: "ex5"
+  uio[6]: "ex6"
+  uio[7]: "ex7"
 
 # Do not change!
 yaml_version: 6

@@ -2,39 +2,26 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import cocotb
-from cocotb.clock import Clock
-from cocotb.triggers import ClockCycles
-
+from cocotb.triggers import Timer, RisingEdge
 
 @cocotb.test()
-async def test_project(dut):
-    dut._log.info("Start")
+async def test_mic1_initial(dut):
+    dut._log.info("Starting MIC-1 Basic Test")
 
-    # Set the clock period to 10 us (100 KHz)
-    clock = Clock(dut.clk, 10, unit="us")
-    cocotb.start_soon(clock.start())
-
-    # Reset
-    dut._log.info("Reset")
+    # Saati başlat
+    dut.clk.value = 0
+    await Timer(10, units="ns")
+    
+    # Reset işlemi
+    dut.rst_n.value = 0
     dut.ena.value = 1
     dut.ui_in.value = 0
-    dut.uio_in.value = 0
-    dut.rst_n.value = 0
-    await ClockCycles(dut.clk, 10)
+    await Timer(20, units="ns")
     dut.rst_n.value = 1
+    
+    # Birkaç çevrim bekle ve PC'nin arttığını gözlemle
+    for i in range(10):
+        await RisingEdge(dut.clk)
+        dut._log.info(f"Cycle {i}: PC is {dut.user_project.PC.value}")
 
-    dut._log.info("Test project behavior")
-
-    # Set the input values you want to test
-    dut.ui_in.value = 20
-    dut.uio_in.value = 30
-
-    # Wait for one clock cycle to see the output values
-    await ClockCycles(dut.clk, 1)
-
-    # The following assersion is just an example of how to check the output values.
-    # Change it to match the actual expected output of your module:
-    assert dut.uo_out.value == 50
-
-    # Keep testing the module by changing the input values, waiting for
-    # one or more clock cycles, and asserting the expected output values.
+    dut._log.info("Basic test finished!")

@@ -7,7 +7,7 @@
 
 module tt_um_mic1_cpu (
     input  wire [7:0] ui_in,    // Giris (Dis bellekten gelen veri)
-    output wire [7:0] uo_out,   // cikiş (Bellek adresi veya veri)
+    output wire [7:0] uo_out,   // cikis (Bellek adresi veya veri)
     input  wire [7:0] uio_in,   // IO giris
     output wire [7:0] uio_out,  // IO cikis
     output wire [7:0] uio_oe,   // IO yon kontrolu (1: cikis, 0: giris)
@@ -36,7 +36,7 @@ module tt_um_mic1_cpu (
                     (PC[1:0] == 2'b01) ? MAR[15:8]  :
                     (PC[1:0] == 2'b10) ? MAR[23:16] : MAR[31:24];
 
-    // simdilik IO'ları ve diger cikislari sifirla 
+    // simdilik IO'lari ve diger cikislari sifirla 
     assign uio_out = 8'b0;
     assign uio_oe  = 8'b0;
 

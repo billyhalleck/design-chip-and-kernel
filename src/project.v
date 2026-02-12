@@ -3,16 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-module tt_um_mic1_cpu (
-    input  wire [7:0] ui_in,    // info.yaml'daki ui[0:7] buraya paket olarak gelir
-    output wire [7:0] uo_out,   // Buraya yazdığın 8-bit uo[0:7] pinlerine gider
-    input  wire       clk,      // Sabit pin
-    input  wire       rst_n,    // Sabit pin
-    input  wire       ena       // Sabit pin
-    // ... diğer portlar
-);
-
-
 `default_nettype none
 
 module tt_um_mic1_cpu (
@@ -31,23 +21,22 @@ module tt_um_mic1_cpu (
     reg [31:0] MDR, MAR;
     reg [7:0]  MBR;
 
-    // --- 2. KONTROL ÜNİTESİ (Microprogram Counter) ---
+    // --- 2. KONTROL ÜNİTESİ ---
     reg [8:0] MPC;
-    // Mikro-kodun saklanacağı ROM (Basitleştirilmiş)
-    // Gerçekte 512 satırlık bir dosya olacak.
-    wire [35:0] micro_instruction; 
+    // Mikro-kodun saklanacağı ROM (Simülasyon için wire tanımlı)
+    wire [35:0] micro_instruction = 36'h0; 
 
     // --- 3. ALU VE DURUM ---
-    wire [31:0] alu_out;
+    wire [31:0] alu_out = 32'h0;
     reg N_flag, Z_flag;
 
-    // --- 4. 8-BIT DARBOĞAZI YÖNETİMİ (Multiplexing) ---
-    // 32-bitlik MAR'ı dışarıdaki 8-bitlik uo_out'a sırayla veriyoruz
+    // --- 4. 8-BIT DARBOĞAZI YÖNETİMİ ---
+    // MAR (Memory Address Register) değerini PC'nin alt bitlerine göre dışarı veriyoruz
     assign uo_out = (PC[1:0] == 2'b00) ? MAR[7:0]   :
                     (PC[1:0] == 2'b01) ? MAR[15:8]  :
                     (PC[1:0] == 2'b10) ? MAR[23:16] : MAR[31:24];
 
-    // Şimdilik IO'ları kullanmıyoruz
+    // Şimdilik IO'ları ve diğer çıkışları sıfırla
     assign uio_out = 8'b0;
     assign uio_oe  = 8'b0;
 
@@ -56,18 +45,22 @@ module tt_um_mic1_cpu (
         if (!rst_n) begin
             MPC <= 9'h0;
             PC  <= 32'h0;
+            MAR <= 32'h0; // MAR'ı da resetleyelim
             Z_flag <= 0;
             N_flag <= 0;
+            SP <= 32'h0;
+            LV <= 32'h0;
+            CPP <= 32'h0;
+            TOS <= 32'h0;
+            OPC <= 32'h0;
+            H <= 32'h0;
+            MDR <= 32'h0;
+            MBR <= 8'h0;
         end else if (ena) begin
-            // 1. Mikro-kodun getirilmesi (Fetch Micro-instruction)
-            // 2. Yazmaçlardan B-Bus'a veri aktarımı
-            // 3. ALU işleminin yapılması
-            // 4. Sonucun C-Bus üzerinden yazmaçlara yazılması
-            // 5. Bir sonraki MPC'nin belirlenmesi
+            // Burada işlem adımları tanımlanacak
+            // Şimdilik boş kalsın, sentez hatası almamak için PC'yi artıralım:
+            PC <= PC + 1; 
         end
     end
 
 endmodule
-
-
-

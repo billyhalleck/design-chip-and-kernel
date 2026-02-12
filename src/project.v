@@ -3,6 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+module tt_um_mic1_cpu (
+    input  wire [7:0] ui_in,    // info.yaml'daki ui[0:7] buraya paket olarak gelir
+    output wire [7:0] uo_out,   // Buraya yazdığın 8-bit uo[0:7] pinlerine gider
+    input  wire       clk,      // Sabit pin
+    input  wire       rst_n,    // Sabit pin
+    input  wire       ena       // Sabit pin
+    // ... diğer portlar
+);
+
+
 `default_nettype none
 
 module tt_um_mic1_cpu (
